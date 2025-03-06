@@ -1,0 +1,96 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+class Queue {
+
+    Node* front;
+
+    Node* rear;
+
+    int count;
+    
+public:
+    Queue()
+        : front(nullptr)
+        , rear(nullptr)
+        , count(0)
+
+    {
+    }
+    
+    void enqueue(int x)
+    {
+        Node* newNode = new Node{ x, nullptr };
+
+        if (rear == nullptr) {
+
+            front = rear = newNode;
+
+        }
+        else {
+
+            rear->next = newNode;
+            rear = newNode;
+        }
+        count++;
+    }
+    void dequeue()
+    {
+        if (count == 0) {
+            cout << "Queue is empty,can not dequeue" << endl;
+            return;
+        }
+
+        if (front == nullptr)
+            return;
+        Node* temp = front;
+        front = front->next;
+
+        if (front == nullptr)
+            rear = nullptr;
+        delete temp;
+        count--;
+    }
+    
+    int top()
+    {
+        if (count == 0) {
+            cout << "Queue is empty, have not top element" << endl;
+            return -1;
+        }
+        if (!isEmpty())
+            return front->data;
+        else
+            throw runtime_error("Queue is empty");
+    }
+    bool isEmpty()
+    {
+        return front == nullptr;
+    }
+
+    int size() {
+        return count;
+    }
+};
+int main()
+{
+    Queue q;
+    q.enqueue(80);
+    cout << "Front element is: " << q.top() << endl;
+    q.dequeue();
+    q.dequeue();
+    q.top();
+    cout << (q.isEmpty() ? "Queue is empty":"Queue is not empty")<< endl;
+    q.enqueue(35);
+    q.enqueue(100);
+    cout << "Front element is: " << q.top() << endl;
+    q.dequeue();
+    cout << "Front element is: " << q.top() << endl;
+    cout << "Size is: "<<q.size() << endl;
+    return 0;
+}
