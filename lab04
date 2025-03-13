@@ -1,0 +1,134 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+class Stack {
+private:
+    Node* head;
+    int num;
+    int capacity;
+
+public:
+    Stack(int initialCapacity) {
+        head = nullptr;
+        num = -1;
+        capacity = initialCapacity;
+    }
+    void push(int x) {
+        if (num >= capacity) {
+            increaseCapacity();
+        }
+
+        Node* newNode = new Node(x);
+        newNode->next = head;
+        head = newNode;
+        num++;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            cout << "Stack is empty!" << endl;
+            return -1;
+        }
+        Node* temp = head;
+        int poppedValue = temp->data;
+        head = head->next;
+        delete temp;
+        num--;
+        return poppedValue;
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            cout << "Stack is empty!" << endl;
+            return -1;
+        }
+        return head->data;
+    }
+    bool isEmpty() {
+        return num == 0;
+    }
+
+    void increaseCapacity() {
+        capacity *= 2;
+        cout << "Capacity increased to " << capacity << endl;
+    }
+
+    bool deleteElement(int x) {
+        if (isEmpty()) return false;
+        Node* current = head;
+        Node* prev = nullptr;
+
+        while (current != nullptr) {
+            if (current->data == x) {
+                if (prev == nullptr) {
+
+                    head = current->next;
+                } else {
+                    prev->next = current->next;
+                }
+                delete current;
+                num--;
+                return true;
+            }
+
+            prev = current;
+            current = current->next;
+        }
+        cout << "Element " << x << " not found in stack!" << endl;
+        return false;
+    }
+
+    void printStack() {
+        Node* temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << ",";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack stack(4);
+
+    stack.push(5);
+    stack.push(10);
+    stack.push(15);
+    stack.push(20);
+
+    cout<<"All elements: "<<endl;
+    stack.printStack();
+
+    cout << "Peek: " << stack.peek() << endl;
+
+    stack.push(25);
+    stack.push(30);
+    stack.push(35);
+    stack.push(40);
+
+    cout<<"All elements after adding: "<<endl;
+
+    stack.printStack();
+
+    cout << "Popped: " << stack.pop() << endl;
+    cout<<"All elements after pop: "<<endl;
+    stack.printStack();
+
+    stack.deleteElement(60);
+    stack.deleteElement(20);
+    cout<<"All elements after deleting: "<<endl;
+    stack.printStack();
+
+
+    return 0;
+}
