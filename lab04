@@ -111,6 +111,7 @@ int main() {
 
     cout << "Peek: " << stack.peek() << endl;
 
+    stack.increaseCapacity();
     stack.push(25);
     stack.push(30);
     stack.push(35);
