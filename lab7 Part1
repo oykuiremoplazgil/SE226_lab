@@ -1,0 +1,58 @@
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    try:
+        return x / y
+    except ZeroDivisionError:
+        return "cant divide by zero"
+
+def power(x, y):
+    return x ** y
+
+def mod(x, y):
+    return x % y
+
+def main():
+    try:
+        x = float(input("enter the first number: "))
+        y = float(input("enter the second number: "))
+        op = input("enter the operation (+, -, *, /, **, %): ")
+
+        operations = {
+            '+': add,
+            '-': subtract,
+            '*': multiply,
+            '/': divide,
+            '**': power,
+            '%': mod
+        }
+
+        if op in operations:
+            result = operations[op](x, y)
+            print("Result:", result)
+        else:
+            print("invalid operation")
+
+    except ValueError:
+        print("please enter correct values")
+
+if __name__ == "__main__":
+
+    print("--Test--")
+    print("Add:", add(10, 20))
+    print("Subtract:", subtract(20, 7))
+    print("Multiply:", multiply(2, 6))
+    print("Divide:", divide(8, 0))
+    print("Divide:", divide(22, 2))
+    print("Power:", power(2, 4))
+    print("Mod:", mod(10, 3))
+
+    print("\n--- Calculator ---")
+    main()
