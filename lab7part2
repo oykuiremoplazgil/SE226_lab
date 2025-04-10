@@ -1,0 +1,40 @@
+import string
+
+def reverse_string(s):
+    return s[::-1]
+
+def capitalize_words(s):
+    return s.title()
+
+def remove_punctuation(s):
+    return ''.join(char for char in s if char not in string.punctuation)
+
+def count_characters(s):
+    return len(s)
+
+def count_words(s):
+    return len(s.split())
+
+def average_word_length(s):
+    words = s.split()
+    if len(words) == 0:
+        return 0
+    total_length = sum(len(word) for word in words)
+    return total_length / len(words)
+
+def main():
+    giris = input("Enter a sentence: ")
+    reversed_text = reverse_string(giris)
+    capitalized_text = capitalize_words(giris)
+    no_punctuation = remove_punctuation(giris)
+
+    print("Reversed:", reversed_text)
+    print("Capitalized:", capitalized_text)
+    print("Sentence without punctuation:", no_punctuation)
+    print("Character count:", count_characters(no_punctuation))
+    print("Word count:", count_words(no_punctuation))
+    print("Average word length:", round(average_word_length(no_punctuation), 2))
+
+
+if __name__ == "__main__":
+    main()
